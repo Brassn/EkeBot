@@ -2,7 +2,6 @@ Hi innocent clonker!
 I am the artificial intelligence for EKE related scenarios. Play with me and I'll show you how skilled you are.
 
 By Balu
-clonk.at.balu@arcor.de
 
 Improvements by Gurkenglas
 Special thanks to Aqua and [DER]Tod which provided some long long overdue improvements to performance and new features

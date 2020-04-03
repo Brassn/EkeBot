@@ -2,8 +2,7 @@
 Hallo unschuldiger Clonker!
 Ich bin die künstliche Intelligenz für EKE, spiele mit mir in dafür vorgesehenen Szenarien und verliere jämmerlich!
 
-By Balu
-clonk.at.balu@arcor.de
+By Balu / Brassn
 
 Vielen Dank an Gurkenglas für einige Performanceverbesserungen.  
 Besonderer Dank gebührt Aqua und [DER]Tod, die 8 Jahre nach der lezten Version viele Verbesserungen und Fehlerbehebungen durchgeführt haben.
