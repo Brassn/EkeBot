@@ -1,0 +1,3 @@
+Follow=Follow me!
+Reset=Reset behavior
+Wait=Stand still

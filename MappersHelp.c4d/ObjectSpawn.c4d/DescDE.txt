@@ -1,0 +1,2 @@
+Spawnpunkt für EKE.
+Komplett selbst geschrieben, da die Hazard Spawns seltsamerweise Synchronisation Errors erzeugt haben.

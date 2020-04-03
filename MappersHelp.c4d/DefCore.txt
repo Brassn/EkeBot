@@ -1,0 +1,9 @@
+[DefCore]
+id=MH1C
+Version=4,9,8
+Name=Mappers Help
+Category=C4D_StaticBack
+Width=1
+Height=1
+Value=1
+Picture=0,0,64,64

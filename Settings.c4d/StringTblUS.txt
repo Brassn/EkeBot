@@ -1,0 +1,14 @@
+BotSettings=Settings related to the eke bots
+Difficulty=Difficulty
+Hard=Hard
+Medium=Medium
+Easy=Easy
+Log=Current Difficulty: %s
+TPOutput=You have played %d games with bots!
+TimesPlayed=Number of games
+ChoosePlayer=Choose Player
+TPHostView=%s has played %d times with bots!
+NoBots=No artifical players in game!
+AddBots=Add scriptplayer
+AddBotTeam=Team %s
+AddBot=Auto Teamchoice

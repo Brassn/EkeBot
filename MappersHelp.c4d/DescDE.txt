@@ -1,0 +1,18 @@
+Wenn diese Regel per #include MH1C im Szenario Script includiert wird, so kümmert Sie sich vollständig um Scorebard und Relaunches.
+Vor allem für unerfahrene Mapper gedacht.
+(Oder der Einfachkeit halber)
+Einfach das in das Szenarien Script einfügen:
+
+#strict 2
+#include MH1C
+
+//Funktionen zum überladen
+static RespawnX;
+static RespawnY;
+protected func SetRespawnPoints()
+{
+RespawnX = [HIER X PUNKTE]; //Orte, an denen gespawnt wird
+RespawnY = [HIER Y PUNKTE];
+}
+protected func Relaunches() { return(10); } //Anzahl der Relaunches
+protected func NoMessages() { return(false); } //Soll am Ende der DamageDealer und SuicideKing geehrt werden?

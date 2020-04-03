@@ -1,0 +1,8 @@
+[Action]
+Name=Attach
+Procedure=ATTACH
+Length=1
+Delay=100
+FacetBase=1
+NextAction=Attach
+EndCall=Remove

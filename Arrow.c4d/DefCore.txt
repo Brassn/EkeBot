@@ -1,0 +1,11 @@
+[DefCore]
+id=AR1C
+Name=Arrow
+Version=4,9,5
+Category=C4D_StaticBack
+Width=16
+Height=16
+Offset=-8,-8
+Vertices=1
+VertexX=0
+VertexY=25

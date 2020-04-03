@@ -1,0 +1,40 @@
+Follow=Soll mir folgen
+Reset=Normal verhalten
+Wait=Stellung halten
+
+#Killsprüche, einen Dank an Jetelu, dem Verfasser:
+
+Mess1=I am not a bug I am a feature!
+Mess2=Hasta la vista Baby!
+Mess3=I am your worst Nightmare
+Mess4=I`ll be back
+Mess5=Pwned
+Mess6=Script:1 Spieler:0
+Mess7=Der Nächste bitte!
+Mess8=YHEEE HAWWWW
+Mess9=Wo sind die Gegner? Ich sehe nur Opfer!
+Mess10=Das Fleisch ist schwach!
+Mess11=Heul doch!
+Mess12=Wenn ich schon so gut bin, wie gut ist dann mein Entwickler?
+Mess13=
+Mess14=Meine Oma würde besser spielen! ... Nur leider hab ich keine ;(
+Mess15=Fachmännisch zerlegt!
+Mess16=Now they have got to tape you back together...WITH TAPE!
+Mess17=POW, HAHA!
+Mess18=Du Tropf!
+Mess19=Sogar Mirosch meinte ich wäre gut.
+Mess20=Stell mich besser auf \"einfach\".
+Mess21=:D
+Mess22=Guck mal, freihändig.
+Mess23=Metzel, schnetzel *sabber*
+Mess24=Toast kann schimmeln, was kannst du?
+Mess25=Ich kann dich auf 300 Arten töten, wobei eine sicherlich ausreicht.
+Mess26=Wenn ich Gefühle hätte empfände ich jetzt Schadenfreude.
+Mess27=Sein oder nicht sein? In deinem Fall ist die Antwort gegeben.
+Mess28=WHO IS NEXT?!
+Mess29=LIEBE MICH!!
+Mess30=doT tsi tseil sad reW
+Mess31=Schick mir ne Karte...AUS DER HÖLLE!
+Mess32=1337
+Mess33=Du kanst mir nicht das Wasser reichen, weil ich nichts trinke, HAHA
+Mess34=Dies ist eine von 34 automatischen, verspottenden Sprüchen.

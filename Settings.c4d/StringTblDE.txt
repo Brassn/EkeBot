@@ -1,0 +1,14 @@
+BotSettings=Einstellungen zu den Bots
+Difficulty=Schwierigkeit
+Hard=Schwer
+Medium=Mittel
+Easy=Einfach
+Log=Derzeitige Schwierigkeit: %s
+TPOutput=Du hast schon %d mal mit Bots gespielt!
+TimesPlayed=Anzahl Spiele
+ChoosePlayer=Spieler wählen
+TPHostView=%s hat schon %d mal mit Bots gespielt!
+NoBots=Keine Computerspieler im Spiel!
+AddBots=Computerspieler hinzufügen
+AddBotTeam=Team %s
+AddBot=Autom. Teamwahl

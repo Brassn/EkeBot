@@ -1,0 +1,15 @@
+[Action]
+Name=Up
+Procedure=FLOAT
+Facet=0,0,10,10
+Delay=5
+StartCall=Up
+NextAction=Up
+
+[Action]
+Name=Down
+Procedure=FLOAT
+Facet=0,0,10,10
+Delay=5
+StartCall=Down
+NextAction=Down

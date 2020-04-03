@@ -1,0 +1,12 @@
+[DefCore]
+id=OS1C
+Name=Object Spawn
+Version=4,9,5
+Category=C4D_Object|C4D_Foreground
+Width=10
+Height=10
+Offset=-5,-5
+Collectible=1
+
+[Physical]
+Float=1

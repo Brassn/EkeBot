@@ -1,0 +1,11 @@
+DamageDealer=%s war diese Runde der <c e30000>Damage Dealer<c ffffff>, mit sagenhaften %v Kills!
+SuicideKing=%s war diese Runde der <c %x>Suicide King</c>, er hat sich %d mal selbst getötet...
+Set=<c %x>Bitte Respawn Punkte einstellen!</c>
+WhatToDo=Was willst du mit %s machen?
+Forgive=Ich vergebe ihm
+Kill=Ich will ihn töten
+Forgiven=%s hat seinem Killer vergeben. Echt nett von ihm!
+Slayed=%s hat seinem Killer eine Revenge verpasst!
+Suicide=%s begang Selbstmord
+Killed=%s wurde von %s gekillt
+TeamKill=%s hat seinen Kameraden %s gekillt
