@@ -4,4 +4,7 @@ I am the artificial intelligence for EKE related scenarios. Play with me and I'l
 By Balu
 clonk.at.balu@arcor.de
 
-v.1.41
+Improvements by Gurkenglas
+Special thanks to Aqua and [DER]Tod which provided some long long overdue improvements to performance and new features
+
+v.1.5

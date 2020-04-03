@@ -31,6 +31,7 @@ public func BotJoined()
 {
 	if (!ExtraDataSet)
 		Initialize();
+	ExtraDataSet = true;
 	return false;
 }
 
@@ -200,7 +201,7 @@ public func OnClonkDeath(object pClonk, int iKiller)
 //Der AI Director ist in Tactictemplates aufgebaut. Diese können per Szenarioscript gesetzt werden,
 //aber es wird versucht das Richtige selbst herauszufinden
 //Inhalt eines Templates:
-//Was ist zu kaufen? Raketen benötigt, steile Abgründe? -> Jetpack, usw.
+//Was ist zu kaufen? Rakten benötigt, steile Abgründe? -> Jetpack, usw.
 //Wohin ist zu gehen? Controlpoints einnehmen, Gegner attackieren, usw.
 //Erkennung eines Klassenauswahlmenüs: Bei vorgegebener Menü-ID random choice treffen.
 

@@ -1,6 +1,6 @@
 // EKE Bot
 // By Balu
-// Some parts improved by Gurkenglas
+// Enthält Verbesserungen durch Gurkenglas, Aqua und [DER]Tod. Vielen Dank!
 // Ich kommentiere nur, wenn mir langweilig ist. Ansonsten schreib ich wohl leider nur unkommentiert.
 
 #strict 2 //Vollständig ;)
@@ -39,6 +39,7 @@ local SpecialAction; //Gibt an, ob der Bot gerade eine spezielle Aufgabe hat
 static EB_BaseIDs;
 
 static GameHost;
+static EB_KillMessages;
 
 protected func Initialize() //Automatisches Initialisieren bei Script Spielern
 {
@@ -47,6 +48,11 @@ protected func Initialize() //Automatisches Initialisieren bei Script Spielern
 	if (!ObjectCount(ST1C))
 		CreateObject(ST1C);
 	inherited();
+
+	if(!EB_KillMessages)
+	{
+		EB_KillMessages = $KillMessages$;
+	}
 }
 
 public func SetComputerControlled()
@@ -98,6 +104,7 @@ protected func CheckStucked()
 	{
 		if (Inside(Position[1], GetY() - 10, GetY() + 10))
 		{
+			//Message("Stuck: %v", this, Position[2]);
 			Position[2]++;
 			if (Position[2] == 1)
 				if (CanFire(EB_Jetpack))
@@ -110,7 +117,7 @@ protected func CheckStucked()
 			{
 				if (GetAction() == "Hangle")
 					SetComDir([COMD_Left, COMD_Right][Random(2)]);
-				if (GetAction() == "Scale")
+				if (GetProcedure() == "SCALE")
 					SetComDir(COMD_Up);
 			}
 			if (Position[2] == 4)
@@ -124,7 +131,7 @@ protected func CheckStucked()
 				var SavedItem = Item;
 				if (GetID(GetCommand(, 1)) == NH5B)
 					AddCommand(this, "Dig", , GetX(GetCommand(, 1)), GetY(GetCommand(, 1)));
-				else 
+				else
 					SetCommand(this, "Dig", , GetX() + (200 * Dir - 100), GetY());
 				Item = SavedItem;
 			}
@@ -150,11 +157,29 @@ protected func CheckStucked()
     */
 			if (Position[2] == 5)
 				Jump();
+			if (Position[2] == 6)
+			{
+				if(CanFire(EB_FlameThrower) && (GetProcedure() == "SCALE" || GetProcedure() == "WALK" || WildcardMatch(GetAction(), "*Jump")))
+				{
+					if (Contents(0) && GetID(Contents(0)) != FT5B)
+						if (!ShiftContents(, , FT5B))
+							return true;
+					SetAction("Walk");
+					CheckArmed(); //Damit die Action aktualisiert wird
+					if (!IsFiring())
+						Contents(0)->~ControlThrow(this);
+				}
+			}
+			if (Position[2] == 10)
+			{
+				Position[2] = 0;
+				SetCommand(this, "None");
+			}
 		}
-		else 
+		else
 			Position = CreateArray(3);
 	}
-	else 
+	else
 		Position = CreateArray(3);
 	if (!Position[1])
 	{
@@ -244,7 +269,7 @@ protected func Baloon2(Bal)
 {
 	// Noch auf dem Ballon?
 	var fOnBal;
-	for (var e in FindObjects(Find_InRect(-20,-20,40,40))) 
+	for (var e in FindObjects(Find_InRect(-20,-20,40,40)))
 	{
 		if (e == Bal)
 			fOnBal = true;
@@ -272,7 +297,7 @@ protected func Baloon2(Bal)
 	// Ziel des Bots noch zu explosionsgefährdet?
 	while (Distance(xBal, yBal, xr, yr) < 100)
 		xr += [1, -1][fRevert];
-	// Alle Mann von Bord. 
+	// Alle Mann von Bord.
 	SetCommand(this, "MoveTo", , xr, yr);
 	//Schedule("AppendCommand(this,\"Wait\",,,,,50)", 1);
 }
@@ -365,12 +390,20 @@ protected func FxCallerDamage(object pObj, int Number, int Dmg, iCause)
 			ShiftContents(, , NH5B, true);
 			Contents(0)->~Activate(this);
 		}
-		else 
+		else
 		{
 			var pAim = FindObject2(Find_Hostile(GetOwner()), Find_OCF(OCF_Alive), Find_Distance(250), Sort_Distance());
 			var pFriend = FindObject2(Find_Not(Find_Hostile(GetOwner())), Find_Exclude(this), Find_OCF(OCF_Alive), Find_Distance(150), Sort_Distance());
 			if (pAim && !pFriend)
+			{
 				Suicide();
+				var omniblaster = FindContents(OB5B);
+				if(omniblaster)
+				{
+					LocalN("mode", omniblaster) = "Enemy";
+					omniblaster->SetAction("SteadyFlash");
+				}
+			}
 		}
 	}
 	if (!Random(EB_Difficulty) && (GetEnergy() * 1000 + Dmg) < 30000)
@@ -481,7 +514,7 @@ protected func CheckTerrain()
 							Item = pObj; //Wird gerade aufgesammelt
 							if (Contained(pObj) && GetID(Contained(pObj)) == OS1C)
 								SetCommand(this, "MoveTo", Contained(pObj));
-							else 
+							else
 								SetCommand(this, "Get", pObj);
 							return true;
 						}
@@ -493,7 +526,7 @@ global func FindBuilder(object Construction)
 	var x = GetX(Construction);
 	var y = GetY(Construction);
 	var clonks = FindObjects(Find_OCF(OCF_Alive), Find_Distance(100, x, y), Find_Not(Find_Hostile(GetOwner(Construction))));
-	for (var foo in clonks) 
+	for (var foo in clonks)
 		if (GetCommand(foo, 1) == Construction)
 			return foo;
 	return false;
@@ -519,7 +552,7 @@ protected func TryToBuild()
 	{
 		var flag = FindObject2(Find_ID(FLAG), Find_Distance(300), Find_Owner(GetOwner()), Find_Or(Find_NoContainer(), Find_Container(this)));
 		if (flag)
-			for (var foo in base) 
+			for (var foo in base)
 			{
 				if (GetBase(foo) == -1)
 					if (flag)
@@ -543,7 +576,7 @@ protected func TryToBuild()
 	//Selber bauen?
 	if (!FindContents(CNKT, this))
 		return false;
-	for (var ID in EB_BaseIDs) 
+	for (var ID in EB_BaseIDs)
 	{
 		//var X = GetX();
 		//var Y = GetY();
@@ -567,10 +600,10 @@ protected func Shopping() //Mit Waffen eindecken ;)
 		{
 			//Erstmal was Verkaufen
 			var sell = GetObject2Drop(, , true);
-			for (var bar in sell) 
+			for (var bar in sell)
 				Sell(GetBase(Contained()), FindContents(bar));
 			//Kaufen!
-			for (var foo in ShoppingList) 
+			for (var foo in ShoppingList)
 			{
 				if (FindContents(foo))
 					continue;
@@ -595,7 +628,7 @@ protected func Shopping() //Mit Waffen eindecken ;)
 	var counter;
 	if (ContentsCount() < 5 || GetObject2Drop(, , true))
 	{
-		for (foo in ShoppingList) 
+		for (foo in ShoppingList)
 		{
 			if (FindContents(foo))
 				continue;
@@ -649,7 +682,7 @@ protected func WaterJump()
 protected func GetNearBase()
 {
 	var bases = FindObjects(Find_Category(C4D_Structure), Find_Not(Find_Hostile(GetOwner())), Find_OCF(OCF_Entrance), Find_Distance(500), Sort_Distance());
-	for (var pObj in bases) 
+	for (var pObj in bases)
 	{
 		if (GetBase(pObj) != -1)
 			return pObj;
@@ -731,6 +764,13 @@ protected func Collection2(object pObj)
 	{
 		pObj ->~ Activate(this); //:O
 		return true;
+	}
+	if(GetID(pObj) == OB5B)
+	{
+		if(GetAction(pObj) == "Countdown")
+		{
+			pObj->Activate(this);
+		}
 	}
 	return _inherited(pObj);
 }
@@ -915,7 +955,7 @@ protected func CheckForReload(id Urgent)
 				IsOnAirbike()->~Activate(this);
 			Reloaded = true;
 		}
-	//Fertig 
+	//Fertig
 	if (Reloaded)
 		return true;
 	return false;
@@ -1021,18 +1061,29 @@ protected func Attack()
 	}
 	if (Mode == EB_HandGrenade)
 	{
-		if (!ShiftContents(, , HG5B, true))
-			if (FindContents(GB5B))
-			{
-				FindContents(GB5B)->~Activate(this);
-				ShiftContents(, , HG5B, true);
-			}
-		if (GetID(Contents(0)) != HG5B)
-			return false;
-		Contents(0)->~Activate(this);
+		var omniblaster = FindContents(OB5B);
+		if(omniblaster)
+		{
+			ShiftContents(, , OB5B, true);
+			omniblaster = Contents(0);
+			LocalN("mode", omniblaster) = "Shock";
+			omniblaster->SetAction("SteadyFlash");
+		}
+		else
+		{
+			if (!ShiftContents(, , HG5B, true))
+				if (FindContents(GB5B))
+				{
+					FindContents(GB5B)->~Activate(this);
+					ShiftContents(, , HG5B, true);
+				}
+			if (GetID(Contents(0)) != HG5B)
+				return false;
+			Contents(0)->~Activate(this);
+		}
 		if (Dir != -1)
 			DropBeveled(Contents(0), Dir);
-		else 
+		else
 			Exit(Contents(0));
 		ThrowingAllowed = false;
 		return true;
@@ -1075,46 +1126,8 @@ protected func Attack()
 
 public func KilledClonk(object pClonk)
 {
-	/*if(!Random(3))
-		return false;*/
-//	var str = Format("$Mess%d$",Random(34)+1); //Localized stings on demand -> Geht nicht
-	var str;
-	var foo = Random(34)+1;
-	if(foo == 1) str = "$Mess1$";
-	if(foo == 2) str = "$Mess2$";
-	if(foo == 3) str = "$Mess3$";
-	if(foo == 4) str = "$Mess4$";
-	if(foo == 5) str = "$Mess5$";
-	if(foo == 6) str = "$Mess6$";
-	if(foo == 7) str = "$Mess7$";
-	if(foo == 8) str = "$Mess8$";
-	if(foo == 9) str = "$Mess9$";
-	if(foo == 10) str = "$Mess10$";
-	if(foo == 11) str = "$Mess11$";
-	if(foo == 12) str = "$Mess12$";
-	if(foo == 13) str = "$Mess13$";
-	if(foo == 14) str = "$Mess14$";
-	if(foo == 15) str = "$Mess15$";
-	if(foo == 16) str = "$Mess16$";
-	if(foo == 17) str = "$Mess17$";
-	if(foo == 18) str = "$Mess18$";
-	if(foo == 19) str = "$Mess19$";
-	if(foo == 20) str = "$Mess20$";
-	if(foo == 21) str = "$Mess21$";
-	if(foo == 22) str = "$Mess22$";
-	if(foo == 23) str = "$Mess23$";
-	if(foo == 24) str = "$Mess24$";
-	if(foo == 25) str = "$Mess25$";
-	if(foo == 26) str = "$Mess26$";
-	if(foo == 27) str = "$Mess27$";
-	if(foo == 28) str = "$Mess28$";
-	if(foo == 29) str = "$Mess29$";
-	if(foo == 30) str = "$Mess30$";
-	if(foo == 31) str = "$Mess31$";
-	if(foo == 32) str = "$Mess32$";
-	if(foo == 33) str = "$Mess33$";
-	if(foo == 34) str = "$Mess34$";
-	Message(str, this);
+	var msg = EB_KillMessages[Random(GetLength(EB_KillMessages))];
+	Message("<c %x>\"%s\"</c>", this, GetPlrColorDw(GetOwner()), msg);
 	return true;
 }
 
@@ -1165,13 +1178,13 @@ protected func GuideMissile()
 	//Wegpunkt 1 setzen, falls Weg frei
 	var myX = GetX(GuidingMissile);
 	var myY = GetY(GuidingMissile);
-	
+
 	if (PathFree(myX, myY, GetX(Enemy), GetY(Enemy)))
 	{
 		GuidingAimX = [GetX(Enemy)];
 		GuidingAimY = [GetY(Enemy)];
 	}
-	else 
+	else
 	{
 		if (GetLength(GuidingAimX) == 1)
 		{
@@ -1183,31 +1196,31 @@ protected func GuideMissile()
 			GuidingAimX[GetLength(GuidingAimX) - 1] = GetX(Enemy);
 			GuidingAimY[GetLength(GuidingAimY) - 1] = GetY(Enemy);
 		}
-		else 
+		else
 		{
 			//var Optimated = SeperateCoordinates(GetX(Enemy), GetY(Enemy));
 			//GuidingAimX[GetLength(GuidingAimX)] = Optimated[0];
 			//GuidingAimY[GetLength(GuidingAimY)] = Optimated[1];
-			
+
 			GuidingAimX[GetLength(GuidingAimX)] = GetX(Enemy);
 			GuidingAimY[GetLength(GuidingAimY)] = GetY(Enemy);
 		}
 	}
-	//Gegner erreicht? 
+	//Gegner erreicht?
 	if (ObjectDistance(Enemy, GuidingMissile) < 15)
 	{
 		Contents(0)->~ControlThrow(this); //BAAAM
 		GuidingMissile = 0;
 		return true;
 	}
-	
+
 	if(EB_EnableDebugging)
 	{
 		for(var i = 1; i<GetLength(GuidingAimX); i++)
 			CreateParticle("NoGravSpark",AbsX(GuidingAimX[i]),AbsY(GuidingAimY[i]),0,0,40,RGB(255,0,0));
 		CreateParticle("NoGravSpark",AbsX(GuidingAimX[0]),AbsY(GuidingAimY[0]),0,0,40,RGB(0,255,0));
 	}
-	 
+
 	//Am Wegpunkt angekommen?
 	if (Inside(myX, GuidingAimX[0] - 5, GuidingAimX[0] + 5))
 		if (Inside(myY, GuidingAimY[0] - 5, GuidingAimY[0] + 5))
@@ -1225,7 +1238,7 @@ protected func GuideMissile()
 		if (LocalN("command", GuidingMissile) != "Straight")
 			Contents(0)->~ControlDown(this);
 	}
-	else 
+	else
 	{
 		var right = TargetR - R;
 		var left = 360 - right;
@@ -1314,7 +1327,7 @@ protected func Command2Airbike(string strCommand, object pTarget, int iTx, int i
 		return true;
 	}
 	return true;
-}  
+}
 
 protected func ControlCommandFinished(string strCommand, object pTarget, int iTx, int iTy, object pTarget2, Data)
 {
@@ -1358,7 +1371,7 @@ protected func AirbikeAttack()
 		//Bike->ControlRight(this);
 		return true;
 	}
-	
+
 	if (Mode == EB_AB_Bullet)
 	{
 		if (LocalN("mode", Bike) != "Cartridges")
@@ -1397,7 +1410,7 @@ protected func ExitYDistance(pID, Dropping)
 	if (pID == HG5B || pID == MO5B)
 		if (Dropping)
 			return 9;
-		else 
+		else
 			return 6;
 	return 0;
 }
@@ -1487,7 +1500,7 @@ protected func CanHitBy(& Dir, bool Debug)
 					//Enemy = 0; //Gegner neu suchen
 					return false;
 				}
-	CheckForReload(); //Nachladen? 
+	CheckForReload(); //Nachladen?
 	if (InLiquid())
 		return false;
 	if (Contained())
@@ -1572,7 +1585,7 @@ protected func ByFlameThrowerNew(int Dir)
 		return false;
 	var rect = Find_InRect((Dir - 1) * 100, -50, 100, 100);
 	var cont = Find_NoContainer();
-	var ocf = Find_Or(Find_OCF(OCF_CrewMember), Find_OCF(OCF_Collectible));
+	var ocf = Find_Or(Find_OCF(OCF_CrewMember), Find_OCF(OCF_Collectible), Find_ID(GR5B));
 	var exclude = Find_Exclude(this);
 	var Aims = FindObjects(rect, cont, exclude, ocf, Sort_Distance());
 	if (!Aims[0])
@@ -1587,17 +1600,22 @@ protected func ByFlameThrowerNew(int Dir)
 				Obstacle = Direction * 1;
 		}
 	//Direkter Treffer
-	for (var pObj in Aims) 
+	for (var pObj in Aims)
 	{
 		if (GetID(pObj) == GS5B || GetID(pObj) == HG5B)
-			if (ObjectDistance(pObj) > 60)
+			if (ObjectDistance(pObj) < 60)
 				return false;
 		if (!FindObject(NF5B))
 			if (!Hostile(GetOwner(), GetOwner(pObj)))
 				return false;
+		if (GetID(pObj) == GR5B) //Schießt auch auf feindliche Sturmgewehr-Granaten
+			if (GetDir() == Dir || GetComDir() == COMD_None) //Nur bei gleicher Richtung, nicht umdrehen
+				if (Hostile(GetOwner(), GetOwner(pObj)))
+					if (GetY(pObj) - GetY() < 5)
+						return EB_FlameThrower;
 		if (!IsEnemy(pObj))
 			continue;
-		if (Inside(GetY(pObj) - GetY(), -5, 5))
+		if (Inside(GetY(pObj) - GetY(), -10, 7))
 			if (Obstacle > ObjectDistance(pObj))
 				return EB_FlameThrower;
 	}
@@ -1641,7 +1659,7 @@ protected func ByFlameThrowerFallingNew(& Dir)
 			if (MatName != "Ice" && MatName != "Snow")
 				ObstacleR = i;
 		}
-	for (pObj in Aims) 
+	for (pObj in Aims)
 	{
 		//Indirekter Treffer
 		if (!IsEnemy(pObj))
@@ -1684,19 +1702,34 @@ protected func ByBulletWeaponNew(int Direction)
 	if (!Available)
 		return false;
 	var ex = Find_Exclude(this);
-	var line = Find_OnLine(0, 0, 210 * Direction, 0);
+	var line = Find_OnLine(0, 0, 205 * Direction, 0);
+	var throughWalls = false;
+	// Streuung der Waffe ausnutzen
+	if(Available == EB_Uzi || Available == EB_AssaultRifle)
+	{
+		line = Find_AtRect((Direction == -1) * -205, -5, 205, 10);
+		throughWalls = true;
+	}
 	var cont = Find_NoContainer();
-	var ocf = Find_Or(Find_OCF(OCF_CrewMember), Find_OCF(OCF_Collectible));
+	var ocf = Find_Or(Find_OCF(OCF_CrewMember), Find_OCF(OCF_Collectible), Find_ID(GR5B));
 	var Aims = FindObjects(ex, cont, line, ocf, Sort_Distance());
 	if (!Aims[0])
 		return false;
-	for (var pObj in Aims) 
+	var ownDirection = GetDir() * 2 - 1;
+	for (var pObj in Aims)
 	{
 		if (IsEnemy(pObj))
-			if (PathFree(GetX(), GetY() - 3, GetX(pObj), GetY(pObj)))
+		{
+			if (throughWalls)
+			{
+				if (PathDigCount(GetX(), GetY() - 3, GetX(pObj), GetY(pObj), 50) < 50)
+					return Available;
+			}
+			else if (PathFree(GetX(), GetY() - 3, GetX(pObj), GetY(pObj)))
 				return Available;
+		}
 		if (GetID(pObj) == GR5B) //Schießt auch auf feindliche Sturmgewehr-Granaten
-			if (GetDir() == Direction) //Nur bei gleicher Richtung, nicht umdrehen
+			if (ownDirection == Direction || GetComDir() == COMD_None) //Nur bei gleicher Richtung, nicht umdrehen
 				if (Hostile(GetOwner(), GetOwner(pObj)))
 					return Available;
 		if (!FindObject(NF5B))
@@ -1707,6 +1740,22 @@ protected func ByBulletWeaponNew(int Direction)
 			return false;
 	}
 	return false;
+}
+
+protected func GetGrenadeContact(int x, int y)
+{
+	/*
+	 * VertexX=0,0,-1,1
+	 * VertexY=-1,1,0,0
+	 * VertexCNAT=4,8,1,2
+	 */
+	var contact;
+	contact |= GBackSolid(x, y - 2) && CNAT_Top;
+	contact |= GBackSolid(x, y + 2) && CNAT_Bottom;
+	contact |= GBackSolid(x - 2, y) && CNAT_Left;
+	contact |= GBackSolid(x + 2, y) && CNAT_Right;
+
+	return contact;
 }
 
 protected func ByGrenadeFireNew(int Dir, Debug)
@@ -1729,26 +1778,35 @@ protected func ByGrenadeFireNew(int Dir, Debug)
 	var InRange = FindObjects(Find_InRect((Dir - 1) * 600, -10, 600, 600),
 							  Find_NoContainer(),
 							  Find_Exclude(this),
-							  Find_Or(Find_OCF(OCF_CrewMember), Find_Category(C4D_Structure)), 
+							  Find_Or(Find_OCF(OCF_CrewMember), Find_Category(C4D_Structure)),
 							 );
-	if (!InRange[0])
+	var EnemyFound = false;
+	for(var pObj in InRange)
+	{
+		if(Hostile(GetOwner(), GetOwner(pObj)))
+		{
+			EnemyFound = true;
+			break;
+		}
+	}
+	if (!EnemyFound)
 		return false;
 	//var Aims;
 	var Repeats = 50;
 	if (EB_Difficulty == EB_Easy)
 		Repeats = 25;
-	
+
 	for (var i = 0; i < Repeats; i++)
 	{
 		Hit = Destination(X, Y, XDir, YDir, 1, Color);
 		/*
-		Aims = FindObjects(Find_Distance(6, AbsX(X), AbsY(Y)), 
-						   Find_Or(Find_OCF(OCF_CrewMember), Find_Category(C4D_Structure), Find_Category(C4D_Vehicle)), 
-						   Find_NoContainer(), 
+		Aims = FindObjects(Find_Distance(6, AbsX(X), AbsY(Y)),
+						   Find_Or(Find_OCF(OCF_CrewMember), Find_Category(C4D_Structure), Find_Category(C4D_Vehicle)),
+						   Find_NoContainer(),
 						   Sort_Distance(AbsX(X), AbsY(Y))
 						  );
 		*/
-		for (var pObj in InRange) 
+		for (var pObj in InRange)
 		{
 			if(Distance(X, Y, GetX(pObj), GetY(pObj)) > 6)
 				continue;
@@ -1776,52 +1834,41 @@ protected func ByGrenadeFireNew(int Dir, Debug)
 		if (Distance(GetX(), GetY(), X, Y) < 20)
 			break; //Abstand muss größer sein als 20
 		//Pseudo Granate erschaffen
-		var pseudo = CreateObject(GR5B, AbsX(X), AbsY(Y), -1);
-		var Contact = GetContact(pseudo, -1, 0);
+		var Contact = GetGrenadeContact(AbsX(X), AbsY(Y));
 		if (!Contact)
 		{
-			RemoveObject(pseudo);
 			SimFlight(X, Y, XDir, YDir);
-			pseudo = CreateObject(GR5B, AbsX(X), AbsY(Y), -1);
-			Contact = GetContact(pseudo, -1, 0);
+			Contact = GetGrenadeContact(AbsX(X), AbsY(Y));
 			if (!Contact)
 			{
-				RemoveObject(pseudo);
 				continue;
 			}
 		}
-		RemoveObject(pseudo);
-		var strCNAT = "";
-		
+
 		if (Contact & CNAT_Left)
 		{
 			XDir = -2 * XDir / 3;
 			YDir = +2 * YDir / 3;
-			strCNAT = Format("%s %s", strCNAT, "Left");
 		}
 		if (Contact & CNAT_Right)
 		{
 			XDir = -2 * XDir / 3;
 			YDir = +2 * YDir / 3;
-			strCNAT = Format("%s %s", strCNAT, "Right");
 		}
 		if (Contact & CNAT_Bottom)
 		{
 			XDir = +2 * XDir / 3;
 			YDir = -2 * YDir / 3;
-			strCNAT = Format("%s %s", strCNAT, "Bottom");
 		}
 		if (Contact & CNAT_Top)
 		{
 			XDir = +2 * XDir / 3;
 			YDir = -2 * YDir / 3;
-			strCNAT = Format("%s %s", strCNAT, "Top");
 		}
-		
+
 		var Ignore = true;
 		if (Debug)
 		{
-			CustomMessage(strCNAT, this, GetOwner(), X - GetX(), Y - GetY() - 10); 
 			Color = RGB(0, 255, 0);
 		}
 		for (var o = 0; o < 40; o++)
@@ -1830,13 +1877,13 @@ protected func ByGrenadeFireNew(int Dir, Debug)
 				Color = RGB(0, 255, 0);
 			Hit = Destination(X, Y, XDir, YDir, 1, Color, Ignore);
 			/*
-			Aims = FindObjects(Find_Distance(6, AbsX(X), AbsY(Y)), 
-							   Find_Or(Find_OCF(OCF_CrewMember), Find_Category(C4D_Structure), Find_Category(C4D_Vehicle)), 
-							   Find_NoContainer(), 
+			Aims = FindObjects(Find_Distance(6, AbsX(X), AbsY(Y)),
+							   Find_Or(Find_OCF(OCF_CrewMember), Find_Category(C4D_Structure), Find_Category(C4D_Vehicle)),
+							   Find_NoContainer(),
 							   Sort_Distance(AbsX(X), AbsY(Y))
 							  );
 			*/
-			for (var pObj in InRange) 
+			for (var pObj in InRange)
 			{
 				if(Distance(X, Y, GetX(pObj), GetY(pObj)) > 6)
 					continue;
@@ -1865,14 +1912,14 @@ protected func ByHandGrenadeNew(& Dir)
 	if (!HasWeapon(EB_HandGrenade) || !ThrowingAllowed)
 		return false;
 	var iDir, X, Y, XDir, YDir;
-	var iDist;
+	var iDist = 30;
 	var act = Find_Action("FlamethrowerWalk");
 	var dist = Find_Distance(100);
 	var enemy = Find_Hostile(GetOwner());
 	var Aims = FindObjects(act, dist, enemy, Sort_Distance());
 	if (!Aims[0])
 		return false;
-	for (var pObj in Aims) 
+	for (var pObj in Aims)
 		if (IsEnemy(pObj))
 			if (pObj->~IsFiring())
 				for (var i = 0; i < 3; i++)
@@ -1935,7 +1982,7 @@ protected func ByMolotovNew(& Dir)
 	if (!Aims[0])
 		return false;
 	Dir = 0;
-	for (var pObj in Aims) 
+	for (var pObj in Aims)
 		if (IsEnemy(pObj))
 			if (OnFire())
 				if (GetOCF(pObj) & OCF_Inflammable)
@@ -1959,7 +2006,7 @@ protected func ByRocketLauncherNew(& Dir)
 	var Aims = FindObjects(dist, enemy, ocf, Sort_Distance());
 	if (!Aims[0])
 		return false;
-	for (var pObj in Aims) 
+	for (var pObj in Aims)
 		if (IsEnemy(pObj))
 			if (!InLiquid(pObj))
 				if (!OnFire())
@@ -2022,6 +2069,7 @@ protected func HasWeapon(int Type)
 	{
 		var Amount = ObjectCount2(Find_Container(this), Find_ID(HG5B));
 		Amount = Amount + ObjectCount2(Find_Container(this), Find_ID(GB5B));
+		Amount += ObjectCount2(Find_Container(this), Find_ID(OB5B));
 		return Amount;
 	}
 	if (Type == EB_Molotov)
@@ -2145,7 +2193,7 @@ protected func Destination(& x, & y, & xdir, & ydir, int Frames, PathGlow, bool 
 	var e;
 	if (Frames)
 		e = Frames;
-	else 
+	else
 		e = 100;
 	for (var i = 0; i < e; i++)
 	{
@@ -2366,7 +2414,7 @@ global func IsCloser(int a, int b, int c) //Gibt zurück, welcher Wert näher zu W
 {
 	if (Abs(c - a) < Abs(c - b))
 		return 0;
-	else 
+	else
 		return 1;
 }
 
@@ -2384,7 +2432,7 @@ public func ab() //DEBUG
 	return true;
 }
 
-global func ai() 
+global func ai()
 {
 	SetMaxPlayer(100);
 	CreateScriptPlayer("Schorsch"); //In irgend einem Team
