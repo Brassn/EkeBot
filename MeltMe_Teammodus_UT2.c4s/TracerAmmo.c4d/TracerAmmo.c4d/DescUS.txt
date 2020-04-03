@@ -1,0 +1,4 @@
+If this rule is active SFTs use tracer ammunition which makes shots visible.
+
+By Balu
+clonk.at.balu@arcor.de

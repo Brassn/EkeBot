@@ -1,0 +1,8 @@
+[DefCore]
+id=TU1Z
+Name=ThumbsUp
+Category=C4D_StaticBack
+Width=0
+Height=0
+Picture=0,0,56,58
+Offset=-16,-16

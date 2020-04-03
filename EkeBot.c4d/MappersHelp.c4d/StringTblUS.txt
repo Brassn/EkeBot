@@ -1,0 +1,11 @@
+DamageDealer=%s was <c e30000>Damage Dealer<c ffffff> this round and has %v kills!
+SuicideKing=%s was <c %x>Suicide King</c>, he killed himself %d times...
+Set=<c %x>Please specify the spawn coordinates</c>
+WhatToDo=Do you seek revenge to %s?
+Forgive=No, let him go
+Kill=Yes, he should die now!
+Forgiven=%s has forgiven his killer
+Slayed=%s got his revenge!
+Suicide=%s comitted suicide
+Killed=%s was killed by %s
+TeamKill=%s killed his teammate %s

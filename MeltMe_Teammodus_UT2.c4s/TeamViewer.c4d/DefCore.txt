@@ -1,0 +1,10 @@
+[DefCore]
+id=TV1Z
+Name=TeamViewer
+Category=C4D_StaticBack
+Width=23
+Height=10
+Offset=-0,-0
+Vertices=1
+VertexY=0
+VertexX=0

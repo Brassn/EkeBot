@@ -1,0 +1,1 @@
+Mit dieser Regel kann der Host die Spielerteams während der Runde wechseln.

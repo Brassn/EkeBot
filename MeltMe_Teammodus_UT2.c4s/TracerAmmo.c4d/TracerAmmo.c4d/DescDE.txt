@@ -1,0 +1,6 @@
+Wenn diese Regel aktiv ist, verwenden SFTs Leuchtspurmunition, wodurch Schüsse sichtbar werden.
+
+Ist die Regel ein mal im Spiel, sind die Schüsse weiß. Ist sie zwei mal im Spiel, so werden sie in Spielerfarbe eingefärbt.
+
+By Balu
+clonk.at.balu@arcor.de

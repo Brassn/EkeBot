@@ -1,0 +1,2 @@
+DE:Texter
+US:Texter

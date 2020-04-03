@@ -1,0 +1,2 @@
+DE:Schriftart-Zombie
+US:Zombie Font

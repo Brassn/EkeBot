@@ -1,0 +1,6 @@
+[Teams]
+TeamDistribution=Host
+TeamColors=1
+MaxScriptPlayers=10
+ScriptPlayerNames=Good old Schorsch|Destructor|Karl von Hinten|Snake|MadBurn|Steelwolf|Sam Solidfist|Rex Hammerschlag|Joe Backbraker|Major Bob|Terminator
+AutoGenerateTeams=1
