@@ -7,7 +7,7 @@ By Balu / Brassn
 Vielen Dank an Gurkenglas für einige Performanceverbesserungen.  
 Besonderer Dank gebührt Aqua und [DER]Tod, die 8 Jahre nach der lezten Version viele Verbesserungen und Fehlerbehebungen durchgeführt haben.
 
-v.1.41
+v.1.5
 
 ## Changelog
 ### Version 1.5 (von Aqua und [DER]Tod)
