@@ -10,8 +10,8 @@ Besonderer Dank gebührt Aqua und [DER]Tod, die 8 Jahre nach der lezten Version 
 
 v.1.41
 
-Changelog
-Version 1.5 (von Aqua und [DER]Tod)
+## Changelog
+### Version 1.5 (von Aqua und [DER]Tod)
 - Performanceverbesserungen beim Granatenschuss
 - Beschuss von ankommende Granaten gefixt und auf Flammenwerfer erweitert
 - Schusswaffen berücksichtigen Streuung
@@ -19,11 +19,11 @@ Version 1.5 (von Aqua und [DER]Tod)
 - Flammenwerfer als weitere Methode fürs Stuckhandling
 - Omniblaster auf Gegner werfen
 
-Version 1.41
+### Version 1.41
 - Gamehost wird nur einmal bestimmt
 - Messagerobjekt aktualisiert
 
-Version 1.4
+### Version 1.4
 Gurkenglas ist dem Projekt beigetreten, nun allerdings wieder inaktiv...  
 Seine bisherigen Änderungen umfassen einige Änderungen zu Gunsten der Performance, bzw. auch kleinere Abänderungen der Verhaltensweise in manchen Situationen.  
 Änderungen Insgesamt:
@@ -31,7 +31,7 @@ Seine bisherigen Änderungen umfassen einige Änderungen zu Gunsten der Performa
 - Viele kleinere Änderungen, die ich nicht mehr einzeln aufzählen kann, es jedoch rechtfertigen euch nicht vorzuenthalten ;)
 - Ich habe jetzt den Bug gefunden+beseitigt, dass das Spiel bei 99% Laden hängen blieb, wenn man im betreffenden Szenario Bunker bauen konnte.
 
-Version 1.3
+### Version 1.3
 - Weniger Leistung benötigt
 - Große Teile komplett neu geschrieben
 - Stippel geeignet
@@ -46,7 +46,7 @@ Version 1.3
 - Vollständig Eke 1.4 kompatibel
 - MappersHelp: Neue Einstellungsmöglichkeiten & Stuff
 
-Version 1.2
+### Version 1.2
 - Verbesserte Gefahrenerkennung
 - Noch mal besseres Raketen-Lenk-System (Wegpunkte werden gesetzt)
 - Aus dem Wasser herausspringen
@@ -57,13 +57,12 @@ Version 1.2
 - Mappers Help (Mappen leicht gemacht)
 - Einige Unschönheiten behoben
 
-
-Version 1.1
+### Version 1.1
 - Intelligentes Raketensteuern, samt Tech-Demo Szenario
 - Deutlich verbesserte Inventar-Verwaltung
 - Fortgeschritteneres Objekte suchen
 - Jetpack Unterstützung
 und selbstverständlich viele behobene Unschönheiten.
 
-Version 1.0
+### Version 1.0
 - Ursprünglicher Release
