@@ -1,66 +1,68 @@
 Hallo unschuldiger Clonker!
-Ich bin die künstliche Intelligenz für EKE, spiele mit mir in dafür vorgesehenen Szenarien und verliere jämmerlich!
+Ich bin die kÃ¼nstliche Intelligenz fÃ¼r EKE, spiele mit mir in dafÃ¼r vorgesehenen Szenarien und verliere jÃ¤mmerlich!
 
 By Balu
 clonk.at.balu@arcor.de
 
-Vielen Dank an Gurkenglas für einige Performanceverbesserungen.
-Besonderer Dank gebührt Aqua und [DER]Tod, die 8 Jahre nach der lezten Version viele Verbesserungen und Fehlerbehebungen durchgeführt haben.
+Vielen Dank an Gurkenglas fÃ¼r einige Performanceverbesserungen.
+Besonderer Dank gebÃ¼hrt Aqua und [DER]Tod, die 8 Jahre nach der lezten Version viele Verbesserungen und Fehlerbehebungen durchgefÃ¼hrt haben.
 
 v.1.41
 
 Changelog
 Version 1.5 (von Aqua und [DER]Tod)
 - Performanceverbesserungen beim Granatenschuss
-- Omniblaster im Inventar werden nach dem Tod aktiviert
-- Beschuss auf ankommende Granaten
-- Flammenwerfer als weitere Methode fürs Stuckhandling
-- 
+- Beschuss von ankommende Granaten gefixt und auf Flammenwerfer erweitert
+- Schusswaffen berÃ¼cksichtigen Streuung
+- Schusswaffen ignorieren kleinere Landschaftsteilchen im Schussfeld
+- Flammenwerfer als weitere Methode fÃ¼rs Stuckhandling
+- Omniblaster auf Gegner werfen
 
 Version 1.41
-Gamehost wird nur einmal bestimmt
+- Gamehost wird nur einmal bestimmt
+- Messagerobjekt aktualisiert
 
 Version 1.4
 Gurkenglas ist dem Projekt beigetreten, nun allerdings wieder inaktiv...
-Seine bisherigen Änderungen umfassen einige Änderungen zu Gunsten der Performance, bzw. auch kleinere Abänderungen der Verhaltensweise in manchen Situationen.
-Änderungen Insgesamt:
+Seine bisherigen Ã„nderungen umfassen einige Ã„nderungen zu Gunsten der Performance, bzw. auch kleinere AbÃ¤nderungen der Verhaltensweise in manchen Situationen.
+Ã„nderungen Insgesamt:
 - Primitiver Airbike Support, das Ausbauen scheitert wohl jetzt an Motivationsmangel
-- Viele kleinere Änderungen, die ich nicht mehr einzeln aufzählen kann, es jedoch rechtfertigen euch nicht vorzuenthalten ;)
-- Ich habe jetzt den Bug gefunden+beseitigt, dass das Spiel bei 99% Laden hängen blieb, wenn man im betreffenden Szenario Bunker bauen konnte.
+- Viele kleinere Ã„nderungen, die ich nicht mehr einzeln aufzÃ¤hlen kann, es jedoch rechtfertigen euch nicht vorzuenthalten ;)
+- Ich habe jetzt den Bug gefunden+beseitigt, dass das Spiel bei 99% Laden hÃ¤ngen blieb, wenn man im betreffenden Szenario Bunker bauen konnte.
 
 Version 1.3
-- Weniger Leistung benötigt
-- Große Teile komplett neu geschrieben
+- Weniger Leistung benÃ¶tigt
+- GroÃŸe Teile komplett neu geschrieben
 - Stippel geeignet
 - Neues Titelbild ;)
-- Kommandos (Folgen, Stellung halten) durch 3-Fach-Stopp in der Nähe eines nicht-verfeindeten Bots. Ermöglicht kooperative Szenarien.
-- Taktikveränderungen in manchen Situationen
+- Kommandos (Folgen, Stellung halten) durch 3-Fach-Stopp in der NÃ¤he eines nicht-verfeindeten Bots. ErmÃ¶glicht kooperative Szenarien.
+- TaktikverÃ¤nderungen in manchen Situationen
 - Bugfixes
-- MappersHelp: Neue Einstellmöglichkeiten (Respawnschutz, etc.)
+- MappersHelp: Neue EinstellmÃ¶glichkeiten (Respawnschutz, etc.)
 - Kein Friendly Fire mehr
-- Selbstständiges Kaufen & Verkaufen
+- SelbststÃ¤ndiges Kaufen & Verkaufen
 - Kann Basen errichten
-- Vollständig Eke 1.4 kompatibel
-- MappersHelp: Neue Einstellungsmöglichkeiten & Stuff
+- VollstÃ¤ndig Eke 1.4 kompatibel
+- MappersHelp: Neue EinstellungsmÃ¶glichkeiten & Stuff
 
 Version 1.2
 - Verbesserte Gefahrenerkennung
 - Noch mal besseres Raketen-Lenk-System (Wegpunkte werden gesetzt)
 - Aus dem Wasser herausspringen
-- Flammenwerfer schaltet vorzeitig an (Höhere Treffer Chance wenn der Gegner vorbeifällt)
+- Flammenwerfer schaltet vorzeitig an (HÃ¶here Treffer Chance wenn der Gegner vorbeifÃ¤llt)
 - Schwierigkeiten-System ist nun fertig, samt Einstell-Regel
-- Abrufbarer Spiele Zähler, integriert in die Regel
-- Vollständiger englischer Support
+- Abrufbarer Spiele ZÃ¤hler, integriert in die Regel
+- VollstÃ¤ndiger englischer Support
 - Mappers Help (Mappen leicht gemacht)
-- Einige Unschönheiten behoben
+- Einige UnschÃ¶nheiten behoben
 
 
 Version 1.1
 - Intelligentes Raketensteuern, samt Tech-Demo Szenario
 - Deutlich verbesserte Inventar-Verwaltung
 - Fortgeschritteneres Objekte suchen
-- Jetpack Unterstützung
-und selbstverständlich viele behobene Unschönheiten.
+- Jetpack UnterstÃ¼tzung
+und selbstverstÃ¤ndlich viele behobene UnschÃ¶nheiten.
 
 Version 1.0
-Ursprünglicher Release
+UrsprÃ¼nglicher Release
