@@ -4,7 +4,7 @@ Ich bin die künstliche Intelligenz für EKE, spiele mit mir in dafür vorgesehe
 
 By Balu / Brassn
 
-**Besonderer Dank gebührt Aqua und [DER]Tod, die 8 Jahre nach der lezten Version viele Verbesserungen und Fehlerbehebungen durchgeführt haben.**
+**Besonderer Dank gebührt Aqua und [DER]Tod, die 8 Jahre nach der letzten Version viele Verbesserungen und Fehlerbehebungen durchgeführt haben.**
 
 Vielen Dank an Gurkenglas für einige Performanceverbesserungen.  
 
